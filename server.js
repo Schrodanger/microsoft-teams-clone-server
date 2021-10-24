@@ -64,7 +64,7 @@ io.on('connection', (socket) => {
             username: data.username,
             socketId: data.socketId
         });
-        console.log('registered new user');
+        console.log('new user');
         console.log(peers);
 
         io.sockets.emit('broadcast', {
