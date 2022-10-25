@@ -56,16 +56,14 @@ const broadcastEventTypes = {
 
 io.on('connection', (socket) => {
     socket.emit('connection', null);
-    console.log('new user connected');
-    console.log(socket.id);
+
 
     socket.on('register-new-user', (data) => {
         peers.push({
             username: data.username,
             socketId: data.socketId
         });
-        console.log('new user');
-        console.log(peers);
+
 
         io.sockets.emit('broadcast', {
             event: broadcastEventTypes.ACTIVE_USERS,
@@ -111,21 +109,21 @@ io.on('connection', (socket) => {
     });
 
     socket.on('webRTC-offer', (data) => {
-        console.log('handling webRTC offer');
+
         io.to(data.calleeSocketId).emit('webRTC-offer', {
             offer: data.offer
         });
     });
 
     socket.on('webRTC-answer', (data) => {
-        console.log('handling webRTC answer');
+
         io.to(data.callerSocketId).emit('webRTC-answer', {
             answer: data.answer
         });
     });
 
     socket.on('webRTC-candidate', (data) => {
-        console.log('handling ice candidate');
+
         io.to(data.connectedUserSocketId).emit('webRTC-candidate', {
             candidate: data.candidate
         });
